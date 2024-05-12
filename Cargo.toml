@@ -1,6 +1,12 @@
 [package]
-name = "groovy"
+name = "zed_groovy"
 version = "0.1.0"
 edition = "2021"
+publish = false
+
+[lib]
+path = "src/groovy.rs"
+crate-type = ["cdylib"]
 
 [dependencies]
+zed_extension_api = "0.0.6"

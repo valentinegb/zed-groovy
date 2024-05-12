@@ -1,0 +1,17 @@
+name = "Groovy"
+grammar = "groovy"
+path_suffixes = ["gradle"]
+first_line_pattern = '^#!.*groovy'
+brackets = [
+    { start = "{", end = "}", close = true, newline = true },
+    { start = "[", end = "]", close = true, newline = true },
+    { start = "(", end = ")", close = true, newline = true },
+    { start = "<", end = ">", close = false, newline = true, not_in = ["string", "comment"] },
+    { start = "\"", end = "\"", close = true, newline = false, not_in = ["comment", "string"] },
+    { start = "'", end = "'", close = true, newline = false, not_in = ["comment", "string"] },
+    { start = "/*", end = " */", close = true, newline = false, not_in = ["string", "comment"] },
+]
+autoclose_before = ",]}>"
+collapsed_placeholder = " /* ... */ "
+line_comments = ["// "]
+block_comment = ["/* ", " */", "/** ", " */", "/**@ ", " */"]
