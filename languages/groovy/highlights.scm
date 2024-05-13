@@ -1,60 +1,73 @@
-(identifier) @variable
+; Brackets
+[
+    "[" "]"
+    "{" "}"
+    "(" ")"
+] @punctuation.bracket
 
+; Delimiters
+[
+    ","
+    ";"
+    "."
+    ":"
+] @punctuation.delimiter
+
+; Strings
+(string) @string
+
+; Escape sequences
+(escape_sequence) @string.escape
+
+; String interpolation
+(string
+    (leading_key) @string.special.symbol
+    "{"? @string.special.symbol
+    (_)* @primary
+    (identifier)? @string.special
+    "}"? @string.special.symbol)
+
+; Numbers
+(number) @number
+
+; Operators
+(operators) @operator
+
+; Contextual keywords
+((identifier) @keyword
+    (#any-of? @keyword
+        "as"
+        "in"
+        "permits"
+        "record"
+        "sealed"
+        "trait"
+        "var"
+        "yields"))
+
+; Primative types
+((identifier) @type
+    (#any-of? @type
+        "boolean"
+        "char"
+        "byte"
+        "short"
+        "int"
+        "long"
+        "float"
+        "double"))
+
+; Boolean literals
 ((identifier) @boolean
     (#any-of? @boolean
         "true"
         "false"))
 
-[
-    (line_comment)
-    (block_comment)
-] @comment
+; null literal
+((identifier) @text.literal
+    (#eq? @text.literal "null"))
 
-((block_comment) @comment.doc
-    (#match? @comment.doc "^/\\*\\*"))
-
-(number) @number
-
-(operators) @operator
-
-; ("." . (identifier) @property)
-
-(command
-    .
-    (unit
-        ((identifier) @not-import
-            (#not-eq? @not-import "import")))
-    (unit
-        "."
-        .
-        (identifier) @property)
-    .)
-
-((identifier) @type
-    (#match? @type "^_*[A-Z].*$"))
-
-((identifier) @constant
-    (#match? @constant "^_*[A-Z][A-Z\\d_]*$"))
-
-(
-    (unit
-        (identifier) @function
-        .)
-    .
-    (arg_block)
-)
-
-(
-    (identifier) @function
-    .
-    (arg_block)
-)
-
-(block
-    (unit
-        (identifier) @function
-        .))
-
+; Reserved keywords
 ((identifier) @keyword
     (#any-of? @keyword
         "abstract"
@@ -82,7 +95,6 @@
         "interface"
         "native"
         "new"
-        "null"
         "non-sealed"
         "package"
         "public"
@@ -100,54 +112,14 @@
         "throws"
         "transient"
         "try"
-        "while"
-        "as"
-        "in"
-        "permitsrecord"
-        "sealed"
-        "trait"
-        "var"
-        "yields"))
+        "while"))
 
+; Comments
 [
-    "{" "}"
-    "<" ">"
-    "(" ")"
-    "[" "]"
-] @punctuation.bracket
+    (line_comment)
+    (block_comment)
+] @comment
 
-[
-    ";"
-    ","
-    ":"
-    "."
-] @punctuation.delimiter
-
-(string) @string
-
-(escape_sequence) @string.escape
-
-((leading_key) . (identifier) @string.special)
-
-(leading_key) @string.special.symbol
-
-(_
-    (leading_key)
-    .
-    "{" @string.special.symbol
-    "}" @string.special.symbol
-    .)
-
-((identifier) @text.literal
-    (#eq? @text.literal "null"))
-
-((identifier) @type
-    (#any-of? @type
-        "boolean"
-        "char"
-        "byte"
-        "short"
-        "int"
-        "long"
-        "float"
-        "double"))
+; Documentation comments
+((block_comment) @comment.doc
+    (#match? @comment.doc "^/\\*\\*"))
