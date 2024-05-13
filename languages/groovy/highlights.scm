@@ -77,6 +77,10 @@
     (arg_block)
 )
 
+; Annotations
+(decorate
+    (identifier) @attribute) @attribute
+
 ; Primative types
 ((identifier) @type
     (#any-of? @type
