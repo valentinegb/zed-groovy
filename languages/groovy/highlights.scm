@@ -45,6 +45,14 @@
         "var"
         "yields"))
 
+; Classes
+((identifier) @type
+    (#match? @type "^[A-Z]"))
+
+; Constants
+((identifier) @constant
+    (#match? @constant "^_*[A-Z][A-Z\\d_]*$"))
+
 ; Primative types
 ((identifier) @type
     (#any-of? @type
