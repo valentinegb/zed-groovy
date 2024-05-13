@@ -45,6 +45,19 @@
         "var"
         "yields"))
 
+; Properties
+("." . (identifier) @property)
+
+; Packages
+(command
+    (unit
+        ((identifier) @keyword
+            (#any-of? @keyword
+                "import"
+                "package")))
+    (unit
+        (identifier) @primary))
+
 ; Classes
 ((identifier) @type
     (#match? @type "^[A-Z]"))
