@@ -53,6 +53,30 @@
 ((identifier) @constant
     (#match? @constant "^_*[A-Z][A-Z\\d_]*$"))
 
+; Methods
+(func
+    (identifier) @function)
+(
+    (unit
+        (identifier) @function
+        .)
+    .
+    (arg_block)
+)
+
+; Constructors
+(func
+    ((identifier) @constructor
+        (#match? @constructor "^[A-Z]")))
+(
+    (unit
+        ((identifier) @constructor
+            (#match? @constructor "^[A-Z]"))
+        .)
+    .
+    (arg_block)
+)
+
 ; Primative types
 ((identifier) @type
     (#any-of? @type
