@@ -3,7 +3,7 @@ name = "Groovy"
 version = "0.1.0"
 schema_version = 1
 
-description = "Groovy DSL support."
+description = "Groovy support."
 repository = "https://github.com/valentinegb/zed-groovy"
 authors = ["Valentine Briese <valentinegb@icloud.com>"]
 
