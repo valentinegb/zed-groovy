@@ -7,7 +7,7 @@ impl Extension for GroovyExtension {
     where
         Self: Sized,
     {
-        GroovyExtension
+        Self
     }
 
     fn language_server_command(
@@ -16,7 +16,7 @@ impl Extension for GroovyExtension {
         _worktree: &Worktree,
     ) -> zed::Result<zed::Command> {
         Ok(zed::Command {
-            command: "".to_string(),
+            command: String::new(),
             args: Vec::new(),
             env: Vec::new(),
         })
