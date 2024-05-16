@@ -7,9 +7,9 @@ description = "Groovy support."
 repository = "https://github.com/valentinegb/zed-groovy"
 authors = ["Valentine Briese <valentinegb@icloud.com>"]
 
-# [language_servers.groovy]
-# name = "Groovy"
-# language = "Groovy"
+[language_servers.groovy]
+name = "Groovy"
+language = "Groovy"
 
 [grammars.groovy]
 repository = "https://github.com/murtaza64/tree-sitter-groovy"
