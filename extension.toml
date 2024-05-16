@@ -12,5 +12,5 @@ authors = ["Valentine Briese <valentinegb@icloud.com>"]
 # language = "Groovy"
 
 [grammars.groovy]
-repository = "https://github.com/Decodetalkers/tree-sitter-groovy"
-rev = "7e023227f46fee428b16a0288eeb0f65ee2523ec"
+repository = "https://github.com/murtaza64/tree-sitter-groovy"
+rev = "6c5c8813233fe326e24c5ef032858d13f8006a8d"
