@@ -1,9 +1,11 @@
 use std::fs;
 
 use zed_extension_api::{
-    self as zed, current_platform, download_file, latest_github_release, make_file_executable,
-    register_extension, set_language_server_installation_status, DownloadedFileType, Extension,
-    GithubReleaseOptions, LanguageServerId, LanguageServerInstallationStatus, Os, Worktree,
+    self as zed, current_platform, download_file, latest_github_release,
+    lsp::{Completion, CompletionKind},
+    make_file_executable, register_extension, set_language_server_installation_status, CodeLabel,
+    CodeLabelSpan, DownloadedFileType, Extension, GithubReleaseOptions, LanguageServerId,
+    LanguageServerInstallationStatus, Os, Worktree,
 };
 
 struct GroovyExtension {
@@ -98,6 +100,45 @@ impl Extension for GroovyExtension {
             args: Vec::new(),
             env: Vec::new(),
         })
+    }
+
+    fn label_for_completion(
+        &self,
+        _language_server_id: &LanguageServerId,
+        completion: Completion,
+    ) -> Option<CodeLabel> {
+        match completion.kind? {
+            CompletionKind::Class | CompletionKind::Enum | CompletionKind::Interface => {
+                Some(CodeLabel {
+                    code: format!("{} variable", completion.label),
+                    spans: vec![
+                        CodeLabelSpan::code_range(0..completion.label.len()),
+                        CodeLabelSpan::literal(format!(" (import {})", completion.detail?), None),
+                    ],
+                    filter_range: (0..completion.label.len()).into(),
+                })
+            }
+            CompletionKind::Method => {
+                let code = format!("{}()", completion.label);
+
+                Some(CodeLabel {
+                    spans: vec![CodeLabelSpan::code_range(0..code.len())],
+                    code,
+                    filter_range: (0..completion.label.len()).into(),
+                })
+            }
+            CompletionKind::Variable => {
+                let def = "def ";
+                let code = format!("{def}{}", completion.label);
+
+                Some(CodeLabel {
+                    spans: vec![CodeLabelSpan::code_range(def.len()..code.len())],
+                    code,
+                    filter_range: (0..completion.label.len()).into(),
+                })
+            }
+            _ => None,
+        }
     }
 }
 
