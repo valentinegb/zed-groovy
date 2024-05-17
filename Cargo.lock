@@ -316,7 +316,7 @@ dependencies = [
 
 [[package]]
 name = "zed_groovy"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "zed_extension_api",
 ]
