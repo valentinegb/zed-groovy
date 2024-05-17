@@ -1,6 +1,6 @@
 name = "Groovy"
 grammar = "groovy"
-path_suffixes = ["groovy", "gradle", "Jenkinsfile"]
+path_suffixes = ["groovy", "gradle", "Jenkinsfile", "JenkinsFile"]
 first_line_pattern = '^#!.*groovy'
 brackets = [
     { start = "{", end = "}", close = true, newline = true },
