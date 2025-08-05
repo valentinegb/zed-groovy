@@ -18,13 +18,13 @@ impl GroovyExtension {
         language_server_id: &LanguageServerId,
     ) -> zed::Result<String> {
         if let Some(path) = &self.cached_binary_path {
-            if fs::metadata(path).map_or(false, |stat| stat.is_file()) {
+            if fs::metadata(path).is_ok_and(|stat| stat.is_file()) {
                 return Ok(path.clone());
             }
         }
 
         set_language_server_installation_status(
-            &language_server_id,
+            language_server_id,
             &LanguageServerInstallationStatus::CheckingForUpdate,
         );
 
@@ -53,9 +53,9 @@ impl GroovyExtension {
         let version_dir = format!("groovy-language-server-{}", release.version);
         let binary_path = format!("{version_dir}/{asset_name}/groovy_language_server_wrapper");
 
-        if !fs::metadata(&binary_path).map_or(false, |stat| stat.is_file()) {
+        if !fs::metadata(&binary_path).is_ok_and(|stat| stat.is_file()) {
             set_language_server_installation_status(
-                &language_server_id,
+                language_server_id,
                 &LanguageServerInstallationStatus::Downloading,
             );
             download_file(&asset.download_url, &version_dir, DownloadedFileType::Zip)
@@ -69,7 +69,7 @@ impl GroovyExtension {
                 let entry = entry.map_err(|e| format!("failed to load directory entry {e}"))?;
 
                 if entry.file_name().to_str() != Some(&version_dir) {
-                    fs::remove_dir_all(&entry.path()).ok();
+                    fs::remove_dir_all(entry.path()).ok();
                 }
             }
         }
