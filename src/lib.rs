@@ -1,11 +1,11 @@
 use std::fs;
 
 use zed_extension_api::{
-    self as zed, current_platform, download_file, latest_github_release,
+    self as zed, CodeLabel, CodeLabelSpan, DownloadedFileType, Extension, GithubReleaseOptions,
+    LanguageServerId, LanguageServerInstallationStatus, Os, Worktree, current_platform,
+    download_file, latest_github_release,
     lsp::{Completion, CompletionKind},
-    make_file_executable, register_extension, set_language_server_installation_status, CodeLabel,
-    CodeLabelSpan, DownloadedFileType, Extension, GithubReleaseOptions, LanguageServerId,
-    LanguageServerInstallationStatus, Os, Worktree,
+    make_file_executable, register_extension, set_language_server_installation_status,
 };
 
 struct GroovyExtension {
