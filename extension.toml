@@ -1,6 +1,6 @@
 id = "groovy"
 name = "Groovy"
-version = "1.2.0"
+version = "1.3.0"
 schema_version = 1
 authors = ["Valentine Briese <valentinegb@icloud.com>"]
 description = "Groovy (build.gradle) support."
